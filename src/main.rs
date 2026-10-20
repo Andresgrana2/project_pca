@@ -1,4 +1,7 @@
 mod config;
+mod error;
+mod routes;
+mod handlers;
 
 use axum::{
     extract::{ Path, Query},
