@@ -2,21 +2,19 @@ mod config;
 mod error;
 mod routes;
 mod handlers;
+mod services;
+mod model;
+mod db;
+mod dto;
 
-use axum::{
-    extract::{ Path, Query},
-    routing::{get, post},
-    Json, Router,
-};
+use axum::Router;
 
-use serde::{ Serialize, Deserialize};
-
+use crate::routes::fee_route::fee_routes;
 
 #[tokio::main]
 async fn main() {
-
     let app = Router::new()
-        .route("/", get(|| async { "Hello, World!" }));
+        .nest("/api", fee_routes());
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await.unwrap();
