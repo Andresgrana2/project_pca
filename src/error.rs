@@ -8,6 +8,11 @@ pub enum AppError {
     Internal(String),
 }
 
+pub trait WebError {
+    fn status_code(&self) -> StatusCode;
+    fn error_message(&self) -> String;
+}
+
 impl IntoResponse for AppError {
     fn into_response(self) -> Response {
         let (status, message) = match self {
