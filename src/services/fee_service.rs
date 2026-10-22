@@ -1,6 +1,21 @@
 use crate::dto::fee_dto::FeeOutput;
 
-pub async fn get_fee() -> FeeOutput {
 
-    FeeOutput::new(5.00)
+
+#[derive(Clone)]
+pub struct FeeService {}
+
+
+impl FeeService {
+    pub fn new() -> Self {
+        Self {}
+    }
+
+
+    pub async fn get_fee(&self) -> FeeOutput {
+
+        FeeOutput::new(5.00)
+    }
+
 }
+

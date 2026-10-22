@@ -1,26 +1,24 @@
 use axum::http::StatusCode;
-use serde::Serialize;
 use crate::error::WebError;
 
-#[derive(Serialize)]
-pub struct PackingInput{
-    pub weight: f32
-}
 
+#[derive(Debug)]
 pub enum PackingError{
-    InvalidPacking
+    InvalidPacking,
+    InvalidWeight,
 }
 
 impl WebError for PackingError {
     fn status_code(&self) -> StatusCode {
         match self {
-            PackingError::InvalidPacking => StatusCode::NOT_FOUND,
+            PackingError::InvalidPacking | PackingError::InvalidWeight => StatusCode::BAD_REQUEST,
         }
     }
 
     fn error_message(&self) -> String {
         match self {
             PackingError::InvalidPacking => "Excede el peso máximo".into(),
+            PackingError::InvalidWeight => "El peso debe ser un número finito mayor o igual a 0.01 kg".into(),
         }
     }
 }

@@ -2,14 +2,17 @@ use axum::{
     http::StatusCode,
     Json
 };
-
+use axum::extract::State;
 use crate::dto::fee_dto::FeeOutput;
-use crate::services::fee_service;
+use crate::error::AppError;
+use crate::services::fee_service::FeeService;
 
-pub async fn get_fee_handler() -> (StatusCode, Json<FeeOutput>){
+pub async fn get_fee_handler(
+    State(service): State<FeeService>,
+) -> Result<Json<FeeOutput>, AppError>{
 
-    let fee = fee_service::get_fee().await;
+    let fee = service.get_fee().await;
 
-    (StatusCode::OK, Json(fee))
+    Ok(Json(fee))
 
 }
