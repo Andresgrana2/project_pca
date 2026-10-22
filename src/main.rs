@@ -10,6 +10,7 @@ mod states;
 
 use axum::Router;
 
+use crate::handlers::html::error_controller::not_found;
 use crate::routes::fee_route::fee_routes;
 use crate::routes::html_route::html_routes;
 use crate::routes::order_route::order_routes;
@@ -28,6 +29,7 @@ async fn main() -> std::io::Result<()> {
         .merge(html_routes())
         .nest("/api", fee_routes())
         .nest("/api", order_routes())
+        .fallback(not_found)
         .with_state(state);
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000").await?;
