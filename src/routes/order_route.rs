@@ -1,6 +1,6 @@
 use axum::Router;
 use axum::routing::post;
-use crate::handlers::order_handler::create_order_handler;
+use crate::handlers::rest::order_handler::create_order_handler;
 use crate::states::AppState;
 
 pub fn order_routes() -> Router<AppState> {
