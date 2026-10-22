@@ -1,9 +1,11 @@
 use axum::extract::FromRef;
 use crate::services::fee_service::FeeService;
+use crate::services::order_service::OrderService;
 
 #[derive(Clone)]
 pub struct AppState {
     pub fee_service: FeeService,
+    pub order_service: OrderService
 }
 
 

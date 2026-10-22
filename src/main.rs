@@ -11,17 +11,21 @@ mod states;
 use axum::Router;
 
 use crate::routes::fee_route::fee_routes;
+use crate::routes::order_route::order_routes;
 use crate::services::fee_service::FeeService;
+use crate::services::order_service::OrderService;
 use crate::states::AppState;
 
 #[tokio::main]
 async fn main() {
     let state = AppState {
         fee_service: FeeService::new(),
+        order_service: OrderService::new(),
     };
 
     let app = Router::new()
         .nest("/api", fee_routes())
+        .nest("/api", order_routes())
         .with_state(state);
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")

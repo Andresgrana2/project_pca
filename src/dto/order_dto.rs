@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use crate::dto::discount_type::DiscountType;
 use crate::dto::order_type_dto::OrderType;
 
@@ -10,7 +10,7 @@ pub struct OrderOutput{
 }
 
 
-#[derive(Serialize)]
+#[derive(Deserialize, Serialize)]
 pub struct OrderInput{
     pub order_type: OrderType,
     pub discount: DiscountType,
