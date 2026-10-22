@@ -9,6 +9,7 @@ mod dto;
 mod states;
 
 use axum::Router;
+use tower_http::services::ServeDir;
 
 use crate::handlers::html::error_controller::not_found;
 use crate::routes::fee_route::fee_routes;
@@ -29,6 +30,7 @@ async fn main() -> std::io::Result<()> {
         .merge(html_routes())
         .nest("/api", fee_routes())
         .nest("/api", order_routes())
+        .nest_service("/statics", ServeDir::new("statics"))
         .fallback(not_found)
         .with_state(state);
 
